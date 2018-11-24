@@ -1,0 +1,31 @@
+{
+  "name": "@nova/ai-logger",
+  "version": "0.1.0",
+  "description": "Application Insights logger for Nova framework",
+  "keywords": [
+    "nova",
+    "logger",
+    "application insights"
+  ],
+  "main": "index.js",
+  "typings": "nova-ai-logger.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Credo360, Inc.",
+    "email": "developers@credo360.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herculesinc/nova-ai-logger.git"
+  },
+  "engines": {
+    "node": "10.13.x"
+  },
+  "dependencies": {
+    "applicationinsights": "1.0.x"
+  },
+  "devDependencies": {
+    "del": "3.0.x",
+    "gulp": "4.0.x"
+  }
+}
