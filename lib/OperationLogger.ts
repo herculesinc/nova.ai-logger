@@ -22,7 +22,7 @@ export class OperationLogger {
     private readonly requestName: string;
     private readonly requestUrl?: string;
 
-    private client              : TelemetryClient;
+    private client?             : TelemetryClient;
     private readonly tags       : TagOverrides;
     private readonly minSeverity: SeverityLevel;
     private readonly startTime  : number;
@@ -49,15 +49,17 @@ export class OperationLogger {
             'ai.location.ip'        : options.requestIp,
             'ai.cloud.role'         : this.componentName
         };
+
+        this.minSeverity = config.minSeverity;
     }
 
     // PUBLIC PROPERTIES
     // --------------------------------------------------------------------------------------------
-    get authenticatedUserId(): string {
+    get authenticatedUserId(): string | undefined {
         return this.tags['ai.user.authUserId'];
     }
 
-    set authenticatedUserId(value: string) {
+    set authenticatedUserId(value: string | undefined) {
         this.tags['ai.user.authUserId'] = value;
     }
 

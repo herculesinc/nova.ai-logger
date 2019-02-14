@@ -32,7 +32,7 @@ declare module 'applicationinsights' {
         dependencyTypeName  : string;
         target?             : string;
         name                : string;
-        data                : string;
+        data?               : string;
         duration            : number;
         resultCode          : string | number;
         success             : boolean;

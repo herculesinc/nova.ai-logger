@@ -59,7 +59,7 @@ runTests().then(() => { console.log('done!'); });
 
 // HELPER FUNCTIONS
 // ================================================================================================
-function wait(time) {
+function wait(time: number) {
     return new Promise((resolve, reject)=>{
         setTimeout(resolve, time);
     });

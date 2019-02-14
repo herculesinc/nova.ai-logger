@@ -15,6 +15,7 @@ class OperationLogger {
         this.requestUrl = options.requestUrl,
             this.startTime = config.startTime;
         this.tags = Object.assign({}, config.baseTags, { 'ai.operation.id': options.operationId, 'ai.operation.name': this.operationName, 'ai.operation.parentId': options.parentId, 'ai.location.ip': options.requestIp, 'ai.cloud.role': this.componentName });
+        this.minSeverity = config.minSeverity;
     }
     // PUBLIC PROPERTIES
     // --------------------------------------------------------------------------------------------
