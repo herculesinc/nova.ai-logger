@@ -10,7 +10,8 @@
       "preLaunchTask": "build",
       "env": {
         "NODE_ENV": "development",
-        "WEBSITE_INSTANCE_ID": "instanceid12345"
+        "WEBSITE_INSTANCE_ID": "instanceid12345",
+        "APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL": "true"
       },
       "sourceMaps": true,
       "outFiles": ["${workspaceRoot}/bin/**/*.js"],

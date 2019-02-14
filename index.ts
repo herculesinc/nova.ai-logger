@@ -1,7 +1,7 @@
 // IMPORTS
 // ================================================================================================
 import { TelemetryClient, TagOverrides, SeverityLevel } from 'applicationinsights';
-import { LoggerConfig, OperationOptions } from '@nova/ia-logger';
+import { LoggerConfig, OperationOptions } from '@nova/ai-logger';
 import { OperationLogger } from './lib/OperationLogger';
 
 // MODULE VARIABLES
@@ -88,7 +88,7 @@ export function startOperation(options: OperationOptions, startTime?: number): O
     
     return new OperationLogger({
         client      : client,
-        minSeverity : SeverityLevel.Verbose,    // TODO: calculate based on log leve
+        minSeverity : SeverityLevel.Verbose,    // TODO: calculate based on log level
         startTime   : startTime || Date.now(),
         baseTags    : tags
     }, options);

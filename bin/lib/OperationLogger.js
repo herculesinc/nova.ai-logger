@@ -76,6 +76,9 @@ class OperationLogger {
         if (success && this.minSeverity > 1 /* Information */)
             return;
         // TODO: validate parameters
+        if (typeof command === 'string') {
+            command = { name: command };
+        }
         this.client.trackDependency({
             dependencyTypeName: source.type,
             target: source.name,

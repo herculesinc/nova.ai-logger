@@ -1,4 +1,4 @@
-declare module "@nova/ia-logger" {
+declare module "@nova/ai-logger" {
     
     // GLOBAL LOGGER
     // --------------------------------------------------------------------------------------------
@@ -11,18 +11,18 @@ declare module "@nova/ia-logger" {
         readonly logLevel?      : { [key: string]: LogLevel };
     }
 
-    export function configure(options: LoggerConfig);
+    export function configure(options: LoggerConfig): void;
 
-    export function debug(message: string);
-    export function info(message: string);
-    export function warn(message: string);
+    export function debug(message: string)  : void;
+    export function info(message: string)   : void;
+    export function warn(message: string)   : void;
 
-    export function error(error: Error);
-    export function track(metric: string, value: number);
+    export function error(error: Error)     : void;
+    export function track(metric: string, value: number): void;
 
     export function startOperation(options: OperationOptions, startTime?: number): OperationLogger;
 
-    export function flush(isAppCrashing: boolean, callback?: (message: string) => void);
+    export function flush(isAppCrashing: boolean, callback?: (message: string) => void): void;
 
     // OPERATION LOGGER
     // --------------------------------------------------------------------------------------------
@@ -45,22 +45,22 @@ declare module "@nova/ia-logger" {
 
     export interface TraceCommand {
         name    : string;
-        text    : string;
+        text?   : string;
     }
 
     export interface OperationLogger {
 
         readonly operationId    : string;
-
         authenticatedUserId?    : string;
 
-        debug(message: string);
-        info(message: string);
-        warn(message: string);
+        debug(message: string)  : void;
+        info(message: string)   : void;
+        warn(message: string)   : void;
+        error(error: Error)     : void;
 
-        error(error: Error);
-        trace(source: TraceSource, command: TraceCommand, duration: number, success: boolean);
+        trace(source: TraceSource, command: string, duration: number, success: boolean)         : void;
+        trace(source: TraceSource, command: TraceCommand, duration: number, success: boolean)   : void;
 
-        close(resultCode: number, success: boolean, properties?: { [key: string]: string; });
+        close(resultCode: number, success: boolean, properties?: { [key: string]: string; })    : void;
     }
 }

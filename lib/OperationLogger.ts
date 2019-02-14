@@ -1,7 +1,7 @@
 // IMPORTS
 // =================================================================================================
 import { TelemetryClient, SeverityLevel, TagOverrides } from 'applicationinsights';
-import { TraceSource, TraceCommand, OperationOptions } from '@nova/ia-logger';
+import { TraceSource, TraceCommand, OperationOptions } from '@nova/ai-logger';
 
 // INTERFACES
 // =================================================================================================
@@ -105,10 +105,15 @@ export class OperationLogger {
         });
     }
 
-    trace(source: TraceSource, command: TraceCommand, duration: number, success: boolean) {
+    trace(source: TraceSource, command: string | TraceCommand, duration: number, success: boolean) {
         if (!this.client) throw new Error('Operation has already been closed');
         if (success && this.minSeverity > SeverityLevel.Information) return;
         // TODO: validate parameters
+
+        if (typeof command === 'string') {
+            command = { name: command };
+        }
+
         this.client.trackDependency({
             dependencyTypeName  : source.type,
             target              : source.name,
