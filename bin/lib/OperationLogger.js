@@ -85,7 +85,7 @@ class OperationLogger {
             dependencyTypeName: source.type,
             target: source.name,
             name: command.name,
-            data: command.text,
+            data: command.text || command.name,
             duration: duration,
             resultCode: success ? 0 : 1,
             success: success,
