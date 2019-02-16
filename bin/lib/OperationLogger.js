@@ -68,6 +68,7 @@ class OperationLogger {
             throw new Error('Operation has already been closed');
         this.client.trackException({
             exception: error,
+            properties: error.details,
             tagOverrides: this.tags
         });
     }

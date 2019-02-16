@@ -73,6 +73,7 @@ function error(error) {
         throw new Error(`Logger hasn't been configured yet`);
     client.trackException({
         exception: error,
+        properties: error.details,
         tagOverrides: tags
     });
 }

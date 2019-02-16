@@ -1,6 +1,6 @@
 {
   "name": "@nova/ai-logger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Application Insights logger for Nova framework",
   "keywords": [
     "nova",
@@ -22,6 +22,7 @@
     "node": "10.15.x"
   },
   "dependencies": {
+    "@nova/core": "0.2.x",
     "applicationinsights": "1.1.x"
   },
   "devDependencies": {

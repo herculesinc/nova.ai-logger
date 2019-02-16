@@ -66,6 +66,7 @@ export function error(error: Error) {
 
     client.trackException({ 
         exception       : error,
+        properties      : (error as any).details,
         tagOverrides    : tags
     });
 }

@@ -103,6 +103,7 @@ export class OperationLogger {
         if (!this.client) throw new Error('Operation has already been closed');
         this.client.trackException({ 
             exception       : error,
+            properties      : (error as any).details,
             tagOverrides    : this.tags
         });
     }

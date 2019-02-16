@@ -50,7 +50,9 @@ async function runTests() {
     );
 
     await wait(10);
-    opLogger.error(new Error('Operation error message'));
+    const err: any = new Error('Operation error message');
+    err.details = { test: 'testing' };
+    opLogger.error(err);
 
     opLogger.close(200, true, { test: 'testing' });
 }

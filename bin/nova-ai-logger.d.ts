@@ -1,8 +1,14 @@
 declare module "@nova/ai-logger" {
     
+    // IMPORTS AND RE-EXPORTS
+    // --------------------------------------------------------------------------------------------
+    import * as nova from '@nova/core';
+    export { TraceSource, TraceCommand } from '@nova/core';
+
     // GLOBAL LOGGER
     // --------------------------------------------------------------------------------------------
     export type LogLevel = 'debug' | 'information' | 'warning' | 'error';
+    
     export interface LoggerConfig {
         readonly iKey           : string;
         readonly appVersion?    : string;
@@ -26,6 +32,8 @@ declare module "@nova/ai-logger" {
 
     // OPERATION LOGGER
     // --------------------------------------------------------------------------------------------
+    export type SourceType = 'http' | 'sql' | 'redis' | 'azure queue' | 'azure service bus' | 'azure blob' | 'azure table' | 'web service';
+    
     export interface OperationOptions {
         readonly operationId    : string;
         readonly operationName  : string;
@@ -38,28 +46,10 @@ declare module "@nova/ai-logger" {
         readonly parentId?      : string;
     }
 
-    export interface TraceSource {
-        name    : string;
-        type    : 'http' | 'sql' | 'redis' | 'azure queue' | 'azure service bus' | 'azure blob' | 'azure table' | 'web service';
-    }
-
-    export interface TraceCommand {
-        name    : string;
-        text?   : string;
-    }
-
-    export interface OperationLogger {
+    export interface OperationLogger extends nova.Logger {
 
         readonly operationId    : string;
         authenticatedUserId?    : string;
-
-        debug(message: string)  : void;
-        info(message: string)   : void;
-        warn(message: string)   : void;
-        error(error: Error)     : void;
-
-        trace(source: TraceSource, command: string, duration: number, success: boolean)         : void;
-        trace(source: TraceSource, command: TraceCommand, duration: number, success: boolean)   : void;
 
         close(resultCode: number, success: boolean, properties?: { [key: string]: string; })    : void;
     }
