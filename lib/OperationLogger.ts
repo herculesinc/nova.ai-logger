@@ -1,7 +1,7 @@
 // IMPORTS
 // =================================================================================================
 import { TelemetryClient, SeverityLevel, TagOverrides } from 'applicationinsights';
-import { TraceSource, TraceCommand, OperationOptions } from '@nova/ai-logger';
+import { OperationLogger as Logger, TraceSource, TraceCommand, TraceDetails, OperationOptions } from '@nova/ai-logger';
 
 // INTERFACES
 // =================================================================================================
@@ -14,7 +14,7 @@ export interface OperationConfig {
 
 // CLASS DEFINITION
 // =================================================================================================
-export class OperationLogger {
+export class OperationLogger implements Logger {
     readonly operationId        : string;
     readonly operationName      : string;
     readonly componentName?     : string;
@@ -108,7 +108,7 @@ export class OperationLogger {
         });
     }
 
-    trace(source: TraceSource, command: string | TraceCommand, duration: number, success: boolean) {
+    trace(source: TraceSource, command: string | TraceCommand, duration: number, success: boolean, details?: TraceDetails) {
         if (!this.client) throw new Error('Operation has already been closed');
         if (success && this.minSeverity > SeverityLevel.Information) return;
         // TODO: validate parameters
@@ -125,11 +125,12 @@ export class OperationLogger {
             duration            : duration,
             resultCode          : success ? 0 : 1,
             success             : success,
-            tagOverrides        : this.tags
+            tagOverrides        : this.tags,
+            properties          : details
         });
     }
 
-    close(resultCode: number, success: boolean, properties?: { [key: string]: string; }) {
+    close(resultCode: number, success: boolean, details?: { [key: string]: string; }) {
         if (!this.client) throw new Error('Operation has already been closed');
         // TODO: validate parameters
         const telemetry = {
@@ -139,7 +140,7 @@ export class OperationLogger {
             resultCode      : resultCode,
             success         : success,
             tagOverrides    : this.tags,
-            properties      : properties
+            properties      : details
         };
         this.client.trackRequest(telemetry);
         this.client = undefined;

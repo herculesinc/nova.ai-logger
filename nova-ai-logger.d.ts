@@ -3,7 +3,7 @@ declare module "@nova/ai-logger" {
     // IMPORTS AND RE-EXPORTS
     // --------------------------------------------------------------------------------------------
     import * as nova from '@nova/core';
-    export { TraceSource, TraceCommand } from '@nova/core';
+    export { TraceSource, TraceCommand, TraceDetails } from '@nova/core';
 
     // GLOBAL LOGGER
     // --------------------------------------------------------------------------------------------
@@ -51,6 +51,6 @@ declare module "@nova/ai-logger" {
         readonly operationId    : string;
         authenticatedUserId?    : string;
 
-        close(resultCode: number, success: boolean, properties?: { [key: string]: string; })    : void;
+        close(resultCode: number, success: boolean, details?: { [key: string]: string; }): void;
     }
 }

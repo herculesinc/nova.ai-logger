@@ -72,7 +72,7 @@ class OperationLogger {
             tagOverrides: this.tags
         });
     }
-    trace(source, command, duration, success) {
+    trace(source, command, duration, success, details) {
         if (!this.client)
             throw new Error('Operation has already been closed');
         if (success && this.minSeverity > 1 /* Information */)
@@ -89,10 +89,11 @@ class OperationLogger {
             duration: duration,
             resultCode: success ? 0 : 1,
             success: success,
-            tagOverrides: this.tags
+            tagOverrides: this.tags,
+            properties: details
         });
     }
-    close(resultCode, success, properties) {
+    close(resultCode, success, details) {
         if (!this.client)
             throw new Error('Operation has already been closed');
         // TODO: validate parameters
@@ -103,7 +104,7 @@ class OperationLogger {
             resultCode: resultCode,
             success: success,
             tagOverrides: this.tags,
-            properties: properties
+            properties: details
         };
         this.client.trackRequest(telemetry);
         this.client = undefined;
